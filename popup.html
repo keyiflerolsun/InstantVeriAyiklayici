@@ -1,81 +1,93 @@
-<!DOCTYPE html>
-<html>
-  <head>
-      <meta charset=utf-8>
-      <title>Instant Data Scraper</title>
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-      <link rel="stylesheet" type="text/css" href="css/handsontable.full.min.css">
-      <link rel="stylesheet" type="text/css" href="popup.css">
-  </head>
-  <body>
-	  <div id="wait">
-          <h1 id="waitHeader">Please wait...</h1>
-          <div id="noResponseErr" class="alert alert-danger"></div>
-          <img src="webrobots_logo.png" id="wait-spider"/>
-      </div>
-      <div id="content">
-          <div class="col-xs-5">
-              <button type="button" class="btn btn-default btn-block" id='wrongTable'>Try another table</button>
-              <button type="button" class="btn btn-primary btn-block" id='nextButton'>Locate "Next" button</button>
+<!doctype html>
+<html lang="tr">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-              <button type="button" class="btn btn-primary btn-block" id='startScraping'>Start crawling</button>
-              <button type="button" class="btn btn-default btn-block" id='stopScraping'>Stop crawling</button>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/handsontable.full.min.css">
+    <link rel="stylesheet" type="text/css" href="popup.css">
 
-              <div id="infinateScrollElement">
-                  <input type="checkbox" id="infinateScroll">
-                  <label for="infinateScroll" id="infinateScrollLabel">Infinite scroll</label>
-              </div>
+    <title>Instant Veri Ayıklayıcı</title>
+</head>
 
-              <form class="btn-block">
-                  <div class="input-group btn-block">
-                      <span class="input-group-addon">Min delay</span>
-                      <input id='crawlDelay' type='number' value='1' class="form-control" />
-                      <span class="input-group-addon">sec</span>
-                  </div>
-                  <div class="input-group btn-block">
-                      <span class="input-group-addon">Max delay</span>
-                      <input id='maxWait' type='number' value='20' class="form-control" />
-                      <span class="input-group-addon">sec</span>
-                  </div>
-             </form>
-          </div>
-          <div class="col-xs-3">
-              <button type="button" class="btn btn-success download-button  btn-block" id='csv'><span class="glyphicon glyphicon-download-alt"></span> CSV</button><br>
-              <button type="button" class="btn btn-success download-button  btn-block" id='xlsx'><span class="glyphicon glyphicon-download-alt"></span> XLSX</button>
-			  <button type="button" class="btn btn-success download-button  btn-block" id='copy'><span class="glyphicon glyphicon-copy"></span> COPY ALL</button>
-              <button type="button" class="btn btn-warning btn-block" id='resetColumns'>Reset columns</button>
-          </div>
-          <div class="col-xs-4">
-              <a href=https://webrobots.io/instantdata id="help" target="_blank"><span class="glyphicon glyphicon-info-sign"></span> Help/Feedback</a>
-              <div id="stats"></div>
-          </div>
-          <div class="col-xs-12" id="info">
-               <div class="alert alert-danger" id="error"></div>
-               <div class="alert alert-success" id="pleaseRate">
-                   If you like this extension, please rate it in chrome store:
-                   <button type="button" class="btn btn-success download-button" id="rate">Rate</button>
-                   <button type="button" class="btn btn-success download-button" id="rateLater">Later</button>
-               </div>
-               <div class="alert alert-warning" id="inputError"></div>
-               <div class="alert alert-warning" id="finished"></div>
-               <div class="alert alert-warning" id="previewLimit"></div>
-               <div class="alert alert-info" id="instructions"></div>
-          </div>
-          <div class="col-xs-12">
-              <div id="hot" class="hot handsontable htRowHeaders htColumnHeaders"></div>
-          </div>
-      </div>
-      <script src="js/papaparse.min.js"></script>
-      <script src="js/jquery-3.1.1.min.js"></script>
-      <!--<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>-->
-      <script src="js/FileSaver.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <script src="js/handsontable.full.min.js"></script>
+<body>
 
-      <script src="js/xlsx.full.min.js"></script>
-      <script src="popup.js"></script>
-	  <script src="google.js"></script>
-  </body>
+    <div class="container-fluid">
+        <div id="wait">
+            <h1 id="waitHeader">Lütfen Bekleyin...</h1>
+            <div id="noResponseErr" class="alert alert-danger"></div>
+            <img src="webrobots_logo.png" id="wait-spider">
+        </div>
+
+        <div id="content" class="row">
+            <div class="col-5">
+                <button type="button" class="btn btn-secondary text-white btn-block" id="wrongTable">Başka Bir Tablo Dene</button>
+                <button type="button" class="btn btn-primary text-white btn-block" id="nextButton">"Sonraki" Butonunu İşaretle</button>
+                <button type="button" class="btn btn-primary text-white btn-block" id="startScraping">Gezinmeye Başla</button>
+                <button type="button" class="btn btn-secondary text-white btn-block" id="stopScraping">Gezinmeyi Durdur</button>
+
+                <div class="row my-3" id="infinateScrollElement">
+                    <div class="col-lg-6 justify-content-center">
+                        <input type="checkbox" id="infinateScroll">
+                        <label for="infinateScroll" id="infinateScrollLabel">Sonsuz Kaydırma</label>
+                    </div>
+                </div>
+
+                <form class="row my-3">
+                    <div class="input-group mb-3"> <span class="col-md-6 input-group-addon">En Az Gecikme</span>
+                        <input class="col form-control" id="crawlDelay" type="number" value="1"> <span class="col input-group-addon">saniye</span>
+                    </div>
+                    <div class="input-group mb-3"> <span class="col-md-6 input-group-addon">En Fazla Gecikme</span>
+                        <input class="col form-control" id="maxWait" type="number" value="20"> <span class="col input-group-addon">saniye</span>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="col-3">
+                <button type="button" class="btn btn-success text-white download-button btn-block" id="csv"><span class="glyphicon glyphicon-download-alt"></span> CSV</button>
+                <br>
+                <button type="button" class="btn btn-success text-white download-button btn-block" id="xlsx"><span class="glyphicon glyphicon-download-alt"></span> XLSX</button>
+                <button type="button" class="btn btn-success text-white download-button btn-block" id="copy"><span class="glyphicon glyphicon-copy"></span> KOPYALA</button>
+                <button type="button" class="btn btn-warning btn-block" id="resetColumns"><span class="glyphicon glyphicon-refresh"></span> Sütunları Sıfırla</button>
+            </div>
+
+            <div class="col-md-4">
+                <a href="https://webrobots.io/instantdata" id="help" target="_blank"><span class="glyphicon glyphicon-info-sign"></span> Yardım/Geri Bildirim</a>
+                <div id="stats"></div>
+            </div>
+
+            <div class="col-12" id="info">
+                <div class="alert alert-danger mt-3" id="error"></div>
+                <div class="alert alert-success mt-3" id="pleaseRate">
+                    Bu uzantıyı beğendiyseniz, lütfen chrome mağazasında derecelendirin:
+                    <button type="button" class="btn btn-success text-white download-button" id="rate">Derecelendir</button>
+                    <button type="button" class="btn btn-success text-white download-button" id="rateLater">Daha Sonra</button>
+                </div>
+                <div class="alert alert-warning mt-3" id="inputError"></div>
+                <div class="alert alert-warning mt-3" id="finished"></div>
+                <div class="alert alert-warning mt-3" id="previewLimit"></div>
+                <div class="alert alert-info mt-3" id="instructions"></div>
+            </div>
+
+            <div class="col-12 my-3" id="scroll-hide">
+                <div id="hot" class="hot handsontable htRowHeaders htColumnHeaders"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/papaparse.min.js"></script>
+    <script src="js/jquery-3.1.1.min.js"></script>
+    <!--<script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script>-->
+    <script src="js/FileSaver.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/handsontable.full.min.js"></script>
+    <script src="js/xlsx.full.min.js"></script>
+    <script src="popup.js"></script>
+    <script src="google.js"></script>
+</body>
 
 </html>

@@ -1,10 +1,10 @@
 {
 "update_url": "https://clients2.google.com/service/update2/crx",
 
-  "name": "Instant Data Scraper",
+  "name": "Instant Veri Ayıklayıcı",
   "version": "1.0.5",
   "manifest_version": 2,
-  "description": "Instant Data Scraper extracts data from web pages and exports it as Excel or CSV files",
+  "description": "Instant Veri Ayıklayıcı, web sayfalarından verileri çıkarır ve Excel veya CSV dosyaları olarak dışa aktarır",
   "browser_action": {
     "default_icon": "pokeball64.png"
   },

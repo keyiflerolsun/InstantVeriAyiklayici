@@ -1,3 +1,8 @@
+#scroll-hide {
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
 .btn, #delay, .alert  {
     margin: 5px;
 }
@@ -12,10 +17,12 @@ body {
     padding-top: 15px;
 }
 #info {
-    margin-top: 10px;
+    margin-top: -24px;
 }
 #stats {
-    margin-top: 50px;
+    margin-top: 20px;
+    text-align: right;
+    float: right;
 }
 #wait-spider {
     height: 150px;
@@ -46,4 +53,48 @@ body {
 
 #infinateScrollElement {
     margin-left: 5px;
+}
+
+html {
+    scrollbar-face-color: #646464;
+    scrollbar-base-color: #646464;
+    scrollbar-3dlight-color: #646464;
+    scrollbar-highlight-color: #646464;
+    scrollbar-track-color: #000;
+    scrollbar-arrow-color: #000;
+    scrollbar-shadow-color: #646464;
+}
+
+::-webkit-scrollbar { width: 7px; height: 7px; }
+::-webkit-scrollbar-track {  background-color: #646464;}
+::-webkit-scrollbar-track-piece { background-color: #000;}
+::-webkit-scrollbar-thumb { height: 50px; background-color: #666; border-radius: 3px;}
+::-webkit-scrollbar-corner { background-color: #646464;}
+::-webkit-resizer { background-color: #666;}
+
+/* Buttons */
+::-webkit-scrollbar-button:single-button {
+    background-color: #646464;
+    display: block;
+    border-style: solid;
+    height: 13px;
+    width: 16px;
+}
+/* Up */
+::-webkit-scrollbar-button:single-button:vertical:decrement {
+    border-width: 0 8px 8px 8px;
+    border-color: transparent transparent #000 transparent;
+}
+
+::-webkit-scrollbar-button:single-button:vertical:decrement:hover {
+    border-color: transparent transparent #646464 transparent;
+}
+/* Down */
+::-webkit-scrollbar-button:single-button:vertical:increment {
+    border-width: 8px 8px 0 8px;
+    border-color: #000 transparent transparent transparent;
+}
+
+::-webkit-scrollbar-button:vertical:single-button:increment:hover {
+    border-color: #646464 transparent transparent transparent;
 }
